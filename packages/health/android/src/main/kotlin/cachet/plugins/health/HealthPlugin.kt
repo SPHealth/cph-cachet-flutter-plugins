@@ -1207,6 +1207,10 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
         result?.success(isGranted)
     }
 
+    private fun checkIfHealthDataAvailable(call: MethodCall, result: Result) {
+        result.success(true)
+    }
+
     /**
      * Requests authorization for the HealthDataTypes
      * with the the READ or READ_WRITE permission type.
@@ -1380,6 +1384,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
      */
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
+            "checkIfHealthDataAvailable" -> checkIfHealthDataAvailable(call, result)
             "useHealthConnectIfAvailable" -> useHealthConnectIfAvailable(call, result)
             "hasPermissions" -> hasPermissions(call, result)
             "requestAuthorization" -> requestAuthorization(call, result)
